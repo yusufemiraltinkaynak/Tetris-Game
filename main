@@ -1,1 +1,325 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define SIZE 3
+int main (){
+	
+	srand(time(NULL));
+	
+	char turn1,nick[50] = {" "},nickbest[50] = {" "};
+	int boy,en,i,j,r=0,turn=0,temp,kord,z=0,randIndex,row,flag,sayac,control=0,control2=0,yusuf1,yusuf,control3,control4,point=0,start,control5,choice,high=0;
+	char tempar[SIZE][SIZE], tempar2[SIZE][SIZE];
+		
+		
+  while (control5 == 0) {	
+  
+	if (point >= high) {
+		high = point;
+		for (i = 0; i < 50; i++){		
+			nickbest[i] = nick[i];
+		}	
+			
+	}
+  
+	
+	printf ("\nHigh Score: %s %d ",nickbest,high);	
+	printf("\nAna Menuye hos geldiniz oyuna hos geldin baslamak icin '1' yazin cikmak icin '2' yaziniz': ");
+	scanf("%d",&start);
 
+		
+	if (start == 1){ // oyuna girip girmeme
+	
+	printf("\nNickinizi yaziniz: ");
+	scanf("%s",&nick);
+	
+	
+	printf("\nTablonuzun boy uzunlugunu giriniz: ");
+    scanf("%d", &boy);
+    
+    printf("\nTablonuzun en uzunlugunu giriniz: ");
+    scanf("%d", &en);
+    
+    char table[boy][en];
+
+    for (i = 0; i < boy; i++) {  //tablyu oluşturma
+        for (j = 0; j < en; j++) {
+            table[i][j] = '.';
+        }
+    }
+
+
+    for (i = 0; i < boy; i++) {  //tablyu yazdırma
+        for (j = 0; j < en; j++) {
+            printf("%4c", table[i][j]);
+        }
+        printf("\n");
+    }
+	
+		
+	r = 0;
+	while (r==0){ // oyunu başlatma
+	
+	char tet[7][SIZE][SIZE] = {
+    {
+        {'x', ' ', ' '},
+        {'x', ' ', ' '},
+        {'x', ' ', ' '}
+    },
+    {
+        {' ', ' ', ' '},
+        {'x', 'x', ' '},
+        {'x', 'x', ' '}
+    },
+    {
+        {' ', ' ', ' '},
+        {'x', ' ', ' '},
+        {'x', ' ', ' '}
+    },
+    {
+        {' ', ' ', ' '},
+        {' ', ' ', ' '},
+        {'x', ' ', ' '}
+    },
+    {
+        {'x', ' ', ' '},
+        {'x', ' ', ' '},
+        {'x', 'x', ' '}
+    },
+    {
+        {'x', ' ', ' '},
+        {'x', ' ', ' '},
+        {'x', ' ', ' '}
+    },
+    {
+        {' ', 'x', 'x'},
+        {' ', 'x', ' '},
+        {'x', 'x', ' '}
+    }};
+	
+
+	 randIndex = rand() % 7; // rastgele sayı üretme
+	
+	printf("\nSekliniz:\n");  // şekli yazdırma
+    	for(i=0; i<SIZE; i++){
+    		for(j=0; j<SIZE; j++){
+    			printf("%4c",tet[randIndex][i][j]);
+			}
+		printf("\n");	
+		}	
+						
+	while (turn == 0) { // şekli döndürme 
+        	printf("\n\nSeklinizi bir kez saga dondurmek icin r yaziniz, dondurme islemini bitirmek icin k yaziniz: "); 
+        	scanf(" %c", &turn1);
+		
+        	if (turn1 == 'r') {          
+	           for ( i = 0; i < SIZE; i++) { // matris kopyalama işlemi
+        			for ( j = 0; j < SIZE; j++) {
+            			tempar[i][j] = tet[randIndex][i][j];
+        			}
+    			}		 
+    			for ( i = 0; i < SIZE; i++) { // 90 derece sağa döndürme işşlemi 
+        			for ( j = 0; j < SIZE; j++) {
+            			tet[randIndex][i][j] = tempar[SIZE - 1 - j][i];
+        			}
+    			}
+    			
+    			printf("\nSekliniz:\n");  // şekli yazdırma
+    				for(i=0; i<SIZE; i++){
+    					for(j=0; j<SIZE; j++){
+    						printf("%4c",tet[randIndex][i][j]);
+			}
+		printf("\n");	
+		}	
+    			
+			} else if (turn1 == 'k') {
+            turn = 1;
+        }
+        
+			
+    }
+    	
+	 
+	for ( i = 0; i < SIZE; i++) { // matris kopyalama işlemi
+        			for ( j = 0; j < SIZE; j++) {
+            			tempar2[i][j] = tet[randIndex][i][j];
+        			}
+    			}
+				
+		yusuf=0;
+		yusuf1=0;			
+					
+		
+		
+		while (yusuf1<2) { // matrisi yerleşime uygun hale getirme işlemi
+		
+		control=0;
+				
+		for (i = 0; i < 3; i++){
+			if (tet[randIndex][i][0] == ' ' ){
+				control++;							
+			}    
+	    }    
+			if (control==3 ){
+					
+	    		for ( j = 0; j < 3; j++) { 
+	    			tet[randIndex][j][2] = ' ';
+	    		}
+        				for ( j = 0; j < 3; j++) {
+            				tet[randIndex][j][0] = tempar2[j][1];
+            			}	
+            				for ( j = 0; j < 3; j++) {
+            					tet[randIndex][j][1] = tempar2[j][2];
+        					}
+        					
+        	
+			for ( i = 0; i < SIZE; i++) { // matris kopyalama işlemi
+        			for ( j = 0; j < SIZE; j++) {
+            			tempar2[i][j] = tet[randIndex][i][j];
+        			}
+    			}				
+        					
+    		}   		
+		 yusuf1++;	  
+	    }	
+	    				
+					
+										
+						 
+	    while (yusuf<2) { // matrisi yerleşime uygun hale getirme işlemi
+		
+		control2=0;
+				
+		for (i = 0; i < 3; i++){
+			if (tet[randIndex][2][i] == ' ' ){
+				control2++;							
+			}    
+	    }    
+			if (control2==3 ){
+					
+	    		for ( j = 0; j < 3; j++) { 
+	    			tet[randIndex][0][j] = ' ';
+	    		}
+        				for ( j = 0; j < 3; j++) {
+            				tet[randIndex][1][j] = tempar2[0][j];
+            			}	
+            				for ( j = 0; j < 3; j++) {
+            					tet[randIndex][2][j] = tempar2[1][j];
+        					}
+        					
+        	
+			for ( i = 0; i < SIZE; i++) { // matris kopyalama işlemi
+        			for ( j = 0; j < SIZE; j++) {
+            			tempar2[i][j] = tet[randIndex][i][j];
+        			}
+    			}				
+        					
+    		}   		
+		 yusuf++;	  
+	    }	
+	    	
+	turn=0,row=0,flag=0,turn1='w',sayac=0,control3 = 1;
+    printf("Kordinatlari giriniz: ");
+    scanf("%d", &kord);
+	row=boy-1,i=0,j=0;
+	
+	
+	for(i = SIZE; 0 < i; i--){ // sayac
+			for(j = SIZE; 0 < j; j--){
+				if	(tet[randIndex][i-1][j-1] == 'x'){
+					sayac++;
+				}
+            }
+	}
+	
+	
+	while (control3 == 1 ){
+		flag=0;	
+		for(i = SIZE; 0 < i; i--){ // şekli yerleştirme işlemi
+			for(j = SIZE; 0 < j; j--){
+
+				if (table[row+i-3][kord-2+j] == '.' && tet[randIndex][i-1][j-1] == 'x') {
+					flag++;
+				} 
+					
+					
+			}
+		} if (sayac != flag && row != 1){
+			row--;	
+		} else {
+			control3 = 0;
+		}
+	} 
+	 
+
+	
+	for(i = SIZE; 0 < i; i--){ // şekli yerleştirme işlemi
+		for(j = SIZE; 0 < j; j--){
+			if (table[row+i-3][kord-2+j] == '.' && tet[randIndex][i-1][j-1] == 'x') {
+				table[row+i-3][kord-2+j] = 'x';
+			}
+		}
+	}
+	
+	 for (i = 0; i < boy; i++) {  //tablyu yazdırma
+        for (j = 0; j < en; j++) {
+            printf("%4c", table[i][j]);
+        }
+        printf("\n");
+    }
+    
+    	control4 = 0; // alt satırı kırma
+		j = 0;
+			while (j < boy) {
+    			if (table[boy-1][j] == 'x') {
+        		control4++;
+    			}
+    		j++;
+			}
+
+		if (control4 == en) {
+    		for (i = boy - 1; i > 0; i--) {
+        		for (j = 0; j < en; j++) {
+            		table[i][j] = table[i - 1][j];
+        		}
+    		}
+
+    		for (j = 0; j < en; j++) {
+        		table[0][j] = '.';
+    		}
+    	point++;	
+		}
+    
+    
+    
+		z=0; // bitişi kontrol etme
+		while (z < en){
+				if (table[0][z]=='x'){
+					r=1;
+				}	
+		z++;		
+							
+    	} 
+    	
+    	if (r == 1) {
+    		
+    		printf("\nOyun bitmistir, sokorunuz: %d ana menuye donmek icin 1 cikmak icin 2 yaziniz: ",point);
+			scanf ("%d", &choice );
+		}
+    	
+	}  
+	
+	
+ } else {
+ 	control5 = 1; 
+	  
+ 	}
+ 
+	if (choice == 2) {
+		control5 = 1;
+	}
+}
+
+	printf ("\nGirdiginiz icin tesekkurler");
+
+	return 0;
+}
